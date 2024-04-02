@@ -34,7 +34,7 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 				return nil, err
 			}
 			resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-				Name:    proto.String(filepath.Join(dir, template.Files[0].Package, template.Files[0].Name) + ".json"),
+				Name:    proto.String(filepath.Join(dir, template.Files[0].Name) + ".json"),
 				Content: proto.String(string(data)),
 			})
 
