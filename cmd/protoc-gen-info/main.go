@@ -21,7 +21,7 @@ import (
 
 	"log"
 
-	"github.com/walteh/protoc-gen-comments/plugin"
+	"github.com/walteh/protoc-gen-info/plugin"
 )
 
 var versionFlag = false

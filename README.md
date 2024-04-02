@@ -1,1 +1,1 @@
-# protoc-gen-comments
+# protoc-gen-info
