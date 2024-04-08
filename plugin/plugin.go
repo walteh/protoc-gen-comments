@@ -33,11 +33,27 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 			if err != nil {
 				return nil, err
 			}
-			resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-				Name:    proto.String(filepath.Join(dir, template.Files[0].Name) + ".json"),
-				Content: proto.String(string(data)),
-			})
+			for _, file := range template.Files {
+				for _, mess := range file.Messages {
+					resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+						Name:    proto.String(filepath.Join(dir, file.Package, mess.Name) + ".json"),
+						Content: proto.String(string(data)),
+					})
+				}
+				for _, srv := range file.Services {
+					resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+						Name:    proto.String(filepath.Join(dir, file.Package, srv.Name) + ".json"),
+						Content: proto.String(string(data)),
+					})
+					for _, rpc := range srv.Methods {
+						resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+							Name:    proto.String(filepath.Join(dir, file.Package, srv.Name, rpc.Name) + ".json"),
+							Content: proto.String(string(data)),
+						})
+					}
+				}
 
+			}
 		}
 
 	}
